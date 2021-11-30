@@ -110,8 +110,49 @@
                 </div> 
             </div>
         </div>
+
         <!--/LISTADO DE CAMIONES-->
 
+        <div class="row">
+            <div class="col-12" >
+                <h4 class="fredoka textocolor">Hoja de ruta</h4>
+                <table class="table table-bordered cardaux textocolor">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th >Camión</th>
+                        <th >Centro de distribución</th>
+                        <th >Puntos de venta</th>
+                        <th >Ruta</th>
+                        <th >Distancia</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <!--Pendiente de revisión   -->
+                        <tr >
+                            <th ></th>
+                            <td></td>
+                            <table class="table table-bordered textocolor">
+                                <tr >
+                                    <th>id:</th> 
+                                    <th>Cantidad: </th>
+                                </tr>
+                            </table>
+                            <td>
+                                <table class="table table-bordered textocolor mx-1">
+                                    <th >Ruta</th>
+                                    <tr>
+                                        <th>Punto: </th>
+                                    </tr>
+                                </table>
+                            </td>
+                            <th >
+
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
     </div>
