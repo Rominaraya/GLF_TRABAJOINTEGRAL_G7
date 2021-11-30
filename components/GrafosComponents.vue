@@ -81,12 +81,36 @@
                             <div class="text-center">
                                 <button class="btn btn-success btn-sm" type="submit">Agregar</button>
                             </div>                  
-                        </form> 
+                        </form>
+                        <div class="py-3 px-3">
+                            <h4 class="textocolor"> Cantidad restante de productos disponible:</h4> 
+                        </div> 
+
+                        <div class="py-3 px-3">
+                            <table class="table table-bordered textocolor">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Punto de venta</th>
+                                        <th scopte="col">cantidad productos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+
+                        <div class="text-center">
+                            <button class="btn btn-lg btn-success" >Generar Hoja de rutas</button>
+                        </div> 
                     </div>
                 </div> 
             </div>
         </div>
-
+        <!--/LISTADO DE CAMIONES-->
 
 
 
