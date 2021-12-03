@@ -161,5 +161,104 @@
 <script>
 
 export default {
+    data(){
+        return{
+            valor:'',
+            valor2:'',
+            cantidad:'',
+            puntosVenta:[],
+            puntosVentaEstatico:[],
+            centrosDistribucion:[],
+            dRestante:'',
+            camionesD:'',
+            camiones:[],
+
+            fabricaCentros:[],
+            centrosPuntos:[],
+            puntosCercanos:[],
+            
+            nodos:[{id:'estacionamiento',label:'estacionamiento'}],
+            nodo:{id:'', label:'', x:'', y:''},
+            aristas:[],
+            arista:{from:'', label:'', to:'', color: {color:'rgb(0,0,0)'}},
+            //Variables control de vistas
+            option1:true,
+            option2:false,
+            option3:false,
+            form1:true,
+            form2:false,
+            dist:false,
+            form3:false,
+        }
+    },
+
+    created(){
+        axios.get('puntosventa').then(response =>{
+            this.puntosVenta=response.data;
+        });
+        axios.get('centrosdistribucion').then(response =>{
+            this.centrosDistribucion=response.data;
+        });
+        
+        for(var i=0; i<this.puntosVenta.length;i++){
+            this.nodo.id= this.puntosVenta[i].N;
+            this.nodo.type= this.puntosVenta[i].type;            
+            this.nodo.label= this.puntosVenta[i].N;
+            this.nodo.x= this.puntosVenta[i].x;
+            this.nodo.y= this.puntosVenta[i].y;
+            this.nodos.push(this.nodo);
+            this.nodo={id:'', label:'', x:'', y:''};
+        }
+
+        for(var j=0; j<this.centrosDistribucion.length; j++){
+            this.nodo.id= this.centrosDistribucion[j].N;
+            this.nodo.type= this.centrosDistribucion[j].type;
+            this.nodo.label= this.centrosDistribucion[j].N;
+            this.nodo.x= this.centrosDistribucion[j].x;
+            this.nodo.y= this.centrosDistribucion[j].y;
+            this.nodos.push(this.nodo);
+            this.nodo={id:'', label:'', x:'', y:''};
+        }
+        
+    },
+
+    methods:{
+        homeControl1(){
+            
+            this.option1=false;
+            this.option2=true;
+            this.option3=false;
+            return
+        },
+        homeControl2(){
+            this.option1=false;
+            this.option2=true;
+            this.option3=false;
+            return
+        },
+        backForm1(){
+            this.form1=true;
+            this.form2=false;
+            this.form3=false;
+            this.dist=false;
+        },
+        formControl1(){
+            this.form1=false;
+            this.form2=true;
+            this.dist=true;
+        },
+        formControl2(){
+            this.form1=false;
+            this.form2=false;
+            this.form3=true;
+            this.dist=true;
+        },
+        homeControl3(){
+            this.option2=false;
+            this.option1=false;
+            this.option3=true;
+            this.hojaDeRuta();
+        },
+    }
 }
 </script>
