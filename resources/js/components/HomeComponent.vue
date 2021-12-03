@@ -259,6 +259,104 @@ export default {
             this.option3=true;
             this.hojaDeRuta();
         },
+        createCamiones(){
+            this.enviarLog("Método createCamiones iniciado")
+            var camion={id:'', centroDist:'', puntoVenta:[], cantdisponible:1000, ruta:[], distancia:''};
+            for(var i=0; i<parseInt(this.camionesD);i++){
+                camion.id=i+1;
+                this.camiones.push(camion);
+                camion={id:'', centroDist:'', puntoVenta:[],cantdisponible:1000, ruta:[], distancia:''};
+            }
+            this.puntosVentaEstatico=this.copia(this.puntosVenta, this.puntosVentaEstatico);
+            this.enviarLog("Método createCamiones finalizado")
+            this.homeControl1();
+        },
+        asignarDistribuidor(id){
+            this.enviarLog("Iniciando método asignarDistribuidor");
+            if(this.valor==0 || this.valor==''){
+                swal("Seleccione un centro de distribución antes de continuar.",{
+                    className:"alertas",
+                    title:"Aviso",
+                    icon:"warning"
+                });
+                return;
+            }
+
+            for(var i =0; i< this.camiones.length;i++){
+                if(this.camiones[i].id==id){
+                    this.camiones[i].centroDist=this.valor;
+                    console.log(this.camiones[i]);
+                }
+            }
+            this.enviarLog("Método asignarDistribuidor Finalizado");
+            this.formControl1();
+        },
+        asignarPuntoVenta(id){
+            this.enviarLog("Método asignarPuntoVenta iniciado")
+            if(this.valor2==0 || this.valor2=='' || this.valor2==null || this.valor2.length < 1|| this.cantidad=='' || this.cantidad==0){
+                swal("Rellene los campos antes de continuar",{
+                    className:"alertas",
+                    title:"Aviso",
+                    icon:"warning"
+                });
+                return;
+            }
+            let pVenta={id:'',cant:'', x:'', y:''};
+            
+            for(var i=0; i<this.camiones.length; i++){
+                if(this.camiones[i].id==id){
+                    if(this.camiones[i].cantdisponible>=this.cantidad){
+                        pVenta.id=this.valor2;
+                        pVenta.cant=this.cantidad;
+                        for(let a=0; a<this.puntosVenta.length; a++){ 
+                            if(this.puntosVenta[a].N==this.valor2){
+                                pVenta.x=this.puntosVenta[a].x;
+                                pVenta.y=this.puntosVenta[a].y;
+                            }
+                        }
+                        this.camiones[i].puntoVenta.push(pVenta);
+                        this.camiones[i].cantdisponible=this.camiones[i].cantdisponible-this.cantidad;
+                    }
+                    else{
+                        swal("El camión sólo puede llevar 1000 productos en un día",{
+                            className:"alertas",
+                            title:"Capacidad Excedida",
+                            icon:"error",
+                        });
+                        return;
+                    }
+                }
+            }
+            this.cantidad=''; 
+            var aux=this.valor2;
+            this.valor2 = undefined;
+            for(var j=0; j<this.puntosVenta.length; j++){ 
+                if(this.puntosVenta[j].N==aux){
+                    this.puntosVenta.splice(j,1);
+                    return;
+                }
+            }
+            aux='';
+            this.enviarLog("Método asignarPuntoVenta finalizado")
+        },
+        copia(a,b){
+            this.enviarLog("Método copia iniciado")
+            for(let c=0; c<a.length; c++){
+                b.push(a[c]);
+            }
+            this.enviarLog("Método copia finalizado")
+            return b;
+        },
+        distanciaPuntoAPunto(puntoA,puntoB){  
+            this.enviarLog("Método distanciaPuntoAPunto iniciado")         
+            var x = puntoB.x-puntoA.x;
+            var y = puntoB.y-puntoA.y;
+            var resultado = parseFloat(Math.sqrt(Math.pow(x,2)+ Math.pow(y,2)));
+            this.enviarLog("Método distanciaPuntoAPunto finalizado")
+            return resultado;
+        },
+
+        // distancia Centro
     }
 }
 </script>
