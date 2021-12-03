@@ -447,7 +447,101 @@ export default {
             this.enviarLog("Método asignarPunto finalizado");
             return centros;
         },
-        // crear hoja de ruta
-    }
+        hojaDeRuta(){
+            this.enviarLog("Método hojaDeRuta iniciado");
+            for(let cam = 0 ; cam < this.camiones.length; cam++){
+                var puntosXcamion = this.distanciaEntrePuntos(this.camiones[cam]);
+                puntosXcamion = this.ordenarPuntos(puntosXcamion);
+                console.log("puntosXcamion", puntosXcamion);
+                this.distanciaCentro_Puntov();
+                var puntoCercano = {punto:'' ,distancia:''}
+                var arrayAux = [];
+                for(let a = 0; a<this.centrosPuntos.length; a++){
+                    for(let b=0; b<this.centrosPuntos[a].length; b++){
+                        for(let c=0; c<puntosXcamion.length; c++){
+                            if(puntosXcamion[c].punto == this.centrosPuntos[a][b][0].N && this.camiones[cam].centroDist == this.centrosPuntos[a][b][1].N){
+                                puntoCercano.punto=this.centrosPuntos[a][b][0].N;
+                                puntoCercano.distancia=this.centrosPuntos[a][b][2];
+                                arrayAux.push(puntoCercano);
+                                puntoCercano = {punto:'' ,distancia:''}
+                            }
+                        }
+                    }
+                }
+                if(arrayAux.length>0){
+                    var min={punto:'', distancia:''};
+                    min.punto=arrayAux[0].punto;
+                    min.distancia=arrayAux[0].distancia;
+                    for(let e=0; e<arrayAux.length; e++){
+                        if(arrayAux[e].distancia<min.distancia){
+                            min.punto=arrayAux[e].punto;
+                            min.distancia=arrayAux[e].distancia;
+                        }
+                    }
+                    console.log("min",min);
+                    this.ruta(min, puntosXcamion, cam);
+                }
+            }
+            this.enviarLog("Método hojaDeRuta finalizado");
+        },
+
+        ruta(inicio, puntosXcamion, cam){
+            this.enviarLog("Método ruta iniciado");
+            var arrayRuta=[];
+            arrayRuta.push(inicio.punto);
+            var distAcumulada=inicio.distancia;
+            for(let a=0; a<puntosXcamion.length; a++){
+                if(inicio.punto == puntosXcamion[a].punto && puntosXcamion[a].estado==false){
+                    puntosXcamion[a].estado=true;
+                    for(let b=0; b<puntosXcamion[a].cerca.length; b++){
+                        for(let c=0; c<puntosXcamion.length; c++){
+                            if(puntosXcamion[a].cerca[b].punto==puntosXcamion[c].punto && puntosXcamion[c].estado==false){
+                                distAcumulada=distAcumulada+puntosXcamion[a].cerca[b].distancia;
+                                puntosXcamion[c].estado==true;
+                                arrayRuta.push(puntosXcamion[c].punto);
+                                inicio.punto=puntosXcamion[c].punto;
+                                c=puntosXcamion.length;
+                                b=puntosXcamion[a].cerca.length;
+                            }
+                        }
+                    }
+                    a=-1;
+                }
+            }
+            var ultimo = arrayRuta[arrayRuta.length-1];
+            for(let ul = 0 ; ul < this.puntosVentaEstatico.length; ul++ ){
+                var arrul = {x:'',y:''}
+                var arres = {x:0,y:0}
+                if(ultimo == this.puntosVentaEstatico[ul].N){
+                    arrul.x = this.puntosVentaEstatico[ul].x
+                    arrul.y = this.puntosVentaEstatico[ul].y
+                    var distEst = this.distanciaPuntoAPunto(arrul,arres);
+                }
+            }
+            var ndis = 0
+            for(let es = 0; es<this.fabricaCentros.length; es++){
+                console.log("centro1",this.fabricaCentros[es].centro);
+                console.log("centro2",this.camiones[cam].centroDist);
+                if(this.camiones[cam].centroDist == this.fabricaCentros[es].centro){
+                    ndis = this.fabricaCentros[es].distancia  
+                }
+            }
+            console.log("ndis",ndis);
+            arrayRuta.unshift('C'+this.camiones[cam].centroDist);
+            arrayRuta.unshift('Estacionamiento');
+            arrayRuta.push('Estacionamiento');
+            distAcumulada = distAcumulada + distEst + ndis;
+            this.camiones[cam].ruta=arrayRuta;
+            this.camiones[cam].distancia=distAcumulada;
+            console.log("Camión:",cam,":",this.camiones[cam]);
+            this.enviarLog("Método ruta finalizado");
+        },
+        //Log
+        enviarLog(str){
+            axios.get("addlog",{params: {messagge: str}}).then(resp =>{
+                console.log("log add");
+            });
+        }
+    },
 }
 </script>
