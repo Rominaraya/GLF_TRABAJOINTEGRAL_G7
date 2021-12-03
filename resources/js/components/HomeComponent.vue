@@ -355,8 +355,99 @@ export default {
             this.enviarLog("Método distanciaPuntoAPunto finalizado")
             return resultado;
         },
+        distanciaCentro_Puntov(){
+            this.enviarLog("Iniciando método distanciaCentro_Puntov");
+            var distancias = [];
+            var distanciasC = [];
+            var rutas_cortas=[];
+            var array = [];
+            for(let j = 0 ; j < this.puntosVentaEstatico.length ; j++){
 
-        // distancia Centro
+                for(let k = 0 ; k < this.centrosDistribucion.length ; k++){
+                    
+                    var distancia = this.distanciaPuntoAPunto(this.centrosDistribucion[k],this.puntosVentaEstatico[j]); 
+                    array.push([this.puntosVentaEstatico[j],this.centrosDistribucion[k],distancia]);                    
+                }
+                distancias.push(array);
+                array=[] 
+            }
+            for(let cen = 0; cen < this.centrosDistribucion.length ; cen++){
+                var arr = {x:0,y:0}
+                var otro = {centro:'', fabrica:'',distancia:''}
+                var distanciaC = this.distanciaPuntoAPunto(arr,this.centrosDistribucion[cen]);
+                otro.centro = this.centrosDistribucion[cen].N;
+                otro.fabrica = arr.x + ','+ arr.y;
+                otro.distancia = distanciaC
+                distanciasC.push(otro);
+                otro = {centro:'', fabrica:'',distancia:''}
+            }
+            this.fabricaCentros = distanciasC;
+            this.centrosPuntos = distancias;
+            this.enviarLog("Método distancia Centro_Puntov finalizado");                  
+        },
+        distanciaEntrePuntos(camion){
+            this.enviarLog("Método distanciaEntrePuntos iniciado");
+            var puntoVenta=camion.puntoVenta;
+            var arrayCercanos = [];
+            var listaPuntos = {punto: '',cerca:[], estado: false};
+            var puntoCerca = {punto: '', distancia: ''};
+            for(var a=0; a<puntoVenta.length; a++){
+                for(var b=0; b<puntoVenta.length; b++){
+                    if(a!=b){
+                        listaPuntos.punto = puntoVenta[a].id;
+                        var arr1={x:'',y:''};
+                        var arr2={x:'',y:''};
+                        arr1.x=puntoVenta[a].x;
+                        arr2.x=puntoVenta[b].x;
+                        arr1.y=puntoVenta[a].y;
+                        arr2.y=puntoVenta[b].y;
+                        var dist = this.distanciaPuntoAPunto(arr1,arr2);
+                        puntoCerca.punto = puntoVenta[b].id;
+                        puntoCerca.distancia = dist;
+                        listaPuntos.cerca.push(puntoCerca);
+                        puntoCerca = {punto: '', distancia: ''}
+                    }
+                }
+                arrayCercanos.push(listaPuntos);
+                listaPuntos = {punto: '', cerca: [], estado: false}
+            }
+            this.enviarLog("Método distanciaEntrePuntos finalizado");
+            return arrayCercanos;
+        },
+
+        ordenarPuntos(arrayCercanos){
+            this.enviarLog("Método ordenarPuntos iniciado");
+            for(let a=0; a<arrayCercanos.length; a++){
+                for(let b=0; b<arrayCercanos[a].cerca.length; b++){
+                    arrayCercanos[a].cerca.sort((a,b)=>(a.distancia > b.distancia) ? 1 : -1);                         
+                }
+            }
+            this.enviarLog("Método ordenarPuntos finalizado");   
+            return arrayCercanos;             
+        },
+
+        asignarPunto(){
+            this.enviarLog("Método asignarPunto iniciado");
+            var centros = [];
+            var point = {punto:'',distancia:''}
+            var center = {centro:'',punto:''}
+            for(let cen = 0 ; cen<this.centrosPuntos.length; cen++){
+                point.punto = this.centrosPuntos[cen].punto;
+                point.distancia = this.centrosPuntos[cen].distancia;
+                center.centro = this.centrosPuntos[cen].centro
+                center.punto = point;
+                centros.push(center);
+                point = {punto:'',distancia:''}
+                center = {centro:'',punto:''} 
+            }                       
+            this.centrosPuntos = centros;
+            console.log("centrosPuntos",this.centrosPuntos);
+            console.log("centrosDistribucion",this.centrosDistribucion);
+            console.log("puntosVenta", this.puntosVenta);
+            this.enviarLog("Método asignarPunto finalizado");
+            return centros;
+        },
+        // crear hoja de ruta
     }
 }
 </script>
