@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <title>Trabajo Integral</title>
 </head>
-<body style="background-color:#3b4044;">
+<body style="background-color:#F7F9F9;">
     <div id="app">
         <navbar></navbar>
     </div>

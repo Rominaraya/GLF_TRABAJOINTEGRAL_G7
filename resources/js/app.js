@@ -1,11 +1,11 @@
 require('./bootstrap');
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-window.vis = require('vis');
-window.Vue = require('vue').default;
+window.vis = require('vis').default;
+import Vue from 'vue'
 require('sweetalert');
-window.FileSaver = require('file-saver');
-window.fs = require('fs-web');
-window.$ = window.jQuery= require('jquery');
+window.FileSaver = require('file-saver').default;
+window.fs = require('fs-web').default;
+window.$ = window.jQuery= require('jquery').default;
 
 
 Vue.component('navbar', require('./components/navbar.vue').default);

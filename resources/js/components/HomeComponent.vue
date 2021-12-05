@@ -1,7 +1,7 @@
  
 <template>
     <div class="container mt-5 pt-4">
-        <h1 class="textocolor py-3">Nueva Hoja de Rutas</h1>  
+        <h1 class="textocolor2 py-3">Nueva Hoja de Rutas</h1>  
         <div class="row">
             <div class="col-12">
                 <form @submit.prevent="createCamiones" class="cardaux textocolor p-4" v-if="option1==true">  
@@ -19,14 +19,14 @@
             </div>
         </div>
         <!--LISTADO DE CAMIONES-->
-        <h3 class="fredoka textocolor" v-if="option2==true">Listado de Camiones</h3>
-        <div class="row accordion cardaux" id="automatas" v-if="option2==true">
+        <h3 class="fredoka textocolor2" v-if="option2==true">Listado de Camiones</h3>
+        <div class="row accordion cardaux scrollabe" id="automatas" v-if="option2==true">
             <ul class="col-lg-3 col-sm-12 my-2 list-group list-group-flush" @click="backForm1">
                 <li class="list-group-item analisis collapsed info textocolor" v-for="(item,index) in camiones" :key="index" data-toggle="collapse" :data-target="'#camion_'+item.id" aria-expanded="false" :aria-controls="'camion_'+item.id">
                     Camión N°{{item.id}}
                 </li>
             </ul>
-            <div class="col-lg-7 col-sm-12 my-2">
+            <div class="col-lg-8 col-sm-12 my-2">
                 <div class="collapse" v-for="(item,index) in camiones" :key="index" :id="'camion_'+item.id" data-parent="#automatas" >
                     <div class="my-3" >
                         <div class="row d-flex justify-content-center">
@@ -114,9 +114,9 @@
         <!--/LISTADO DE CAMIONES-->
 
 
-        <div class="row">
+        <div class="row scrollabe">
             <div class="col-12" v-if="option3==true">
-                <h4 class="fredoka textocolor">Hoja de ruta</h4>
+                <h4 class="fredoka textocolor2">Hoja de ruta</h4>
                 <table class="table table-bordered cardaux textocolor">
                     <thead class="thead-dark">
                         <tr>
@@ -355,6 +355,7 @@ export default {
             this.enviarLog("Método distanciaPuntoAPunto finalizado")
             return resultado;
         },
+        
         distanciaCentro_Puntov(){
             this.enviarLog("Iniciando método distanciaCentro_Puntov");
             var distancias = [];

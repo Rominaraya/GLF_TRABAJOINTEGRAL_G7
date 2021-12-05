@@ -1,6 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 #navbar {
-    background-color: rgba(9, 14, 17, 0.85) !important;
+    background-color: rgb(0, 166, 118) !important;
     -webkit-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
     -moz-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
     box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
@@ -17,12 +17,10 @@ body {
 
 
 .cardaux {
-    background-color: rgba(108, 117, 125, 0.7) !important;
+    background-color: rgba(41, 51, 92) !important;
     border-color: #090e11;
     color: #e7e7e7;
-    -webkit-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
-    box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
+
 }
 
 .cardaux2 {
@@ -55,7 +53,21 @@ body {
 }
 
 .textocolor {
-    color: #e7e7e7 !important;
+    color: #ffffff !important;
+    z-index: 100;
+}
+
+.scrollabe {
+   overflow-y: scroll;
+   max-height: 700px;
+}
+
+#automatas {
+    overflow-y: scroll;
+}
+
+.textocolor2 {
+    color: #000000 !important;
     z-index: 100;
 }
 

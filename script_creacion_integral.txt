@@ -1,0 +1,40 @@
+/*Crear la base de datos*/
+CREATE DATABASE trabajo_integral;
+
+USE trabajo_integral;
+/*Creacion de tablas*/
+CREATE TABLE punto__ventas
+	(
+	id BIGINT(20)UNSIGNED NOT NULL AUTO_INCREMENT,
+	type VARCHAR(255)COLLATE utf8mb4_unicode_ci NOT NULL,
+	N BIGINT(20)NOT NULL,
+	x BIGINT(20)NOT NULL,
+	y BIGINT(20)NOT NULL,
+	created_at TIMESTAMP NULL DEFAULT NULL,
+	updated_at TIMESTAMP NULL DEFAULT NULL,
+	PRIMARY KEY(id)
+	);
+CREATE TABLE centro_distribucions
+	(
+	id BIGINT(20)UNSIGNED NOT NULL AUTO_INCREMENT,
+	type VARCHAR(255)COLLATE utf8mb4_unicode_ci NOT NULL,
+	N BIGINT(20)NOT NULL,
+	x BIGINT(20)NOT NULL,
+	y BIGINT(20)NOT NULL,
+	created_at TIMESTAMP NULL DEFAULT NULL,
+	updated_at TIMESTAMP NULL DEFAULT NULL,
+	PRIMARY KEY(id)
+	);
+CREATE TABLE migrations
+	(
+	id INT(10)UNSIGNED NOT NULL AUTO_INCREMENT,
+	migration VARCHAR(255)COLLATE utf8mb4_unicode_ci NOT NULL,
+	batch INT(11)NOT NULL,
+	PRIMARY KEY(id)
+	);
+/*Mostrar datos*/
+
+SELECT * FROM punto__ventas;
+SELECT * FROM centro_distribucions;
+
+

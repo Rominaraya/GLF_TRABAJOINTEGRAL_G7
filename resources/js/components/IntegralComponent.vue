@@ -20,6 +20,11 @@ export default {
         }
     },
     created(){
+        swal("Para iniciar por favor ingrese un archivo .txt con las coordenadas para luego generar la hoja de rutas.",{
+            className:"alertas",
+            title:"Bienvenido!",
+
+        });
 
     },
 
@@ -53,3 +58,9 @@ export default {
 </script>
 
  
+
+  
+
+  
+
+
